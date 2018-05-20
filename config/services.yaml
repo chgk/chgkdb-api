@@ -26,3 +26,21 @@ services:
 
     Chgk\ChgkDb\Parser\:
         resource: ../vendor/chgk/chgkdb-parser/src/*
+
+    api_platform.operation_path_resolver.custom:
+        class: 'App\PathResolver\ChgkOperationPathResolver'
+
+
+    serializer.encode.json.unescaped:
+        class: Symfony\Component\Serializer\Encoder\JsonEncode
+        arguments:
+          - !php/const JSON_UNESCAPED_UNICODE
+
+    serializer.encoder.json:
+        class: Symfony\Component\Serializer\Encoder\JsonEncoder
+        arguments:
+          - '@serializer.encode.json.unescaped'
+
+    App\EventSubscriber\LegacyIdSubscriber:
+        tags:
+          - { name: doctrine.event_subscriber, connection: default }
