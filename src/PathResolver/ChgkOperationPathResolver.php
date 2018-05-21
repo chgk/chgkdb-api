@@ -14,6 +14,10 @@ class ChgkOperationPathResolver implements OperationPathResolverInterface
         $operationType/*, string $operationName = null*/
     ): string
     {
+        if (isset($operation['path'])) {
+            return $operation['path'];
+        }
+
         $path = Inflector::pluralize(strtolower($resourceShortName));
         if ($operationType != OperationType::COLLECTION) {
             $path .= '/{id}';

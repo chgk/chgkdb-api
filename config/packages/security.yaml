@@ -11,6 +11,9 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        unsecured:
+            pattern: ^/questions/validate
+            anonymous: true
         secured:
             pattern: ^/
             methods: [POST, PUT, PATCH]
