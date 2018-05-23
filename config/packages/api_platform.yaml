@@ -15,3 +15,5 @@ api_platform:
       varnish_urls: []
 
 
+  eager_loading:
+    force_eager: false

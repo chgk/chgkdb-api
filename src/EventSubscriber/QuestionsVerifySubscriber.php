@@ -5,6 +5,7 @@ namespace App\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Dto\VerifyQuestionsRequest;
+use Chgk\ChgkDb\Parser\Formatter\FormatterFactory;
 use Chgk\ChgkDb\Parser\Formatter\HtmlFormatter;
 use Chgk\ChgkDb\Parser\Iterator\FileLineIterator;
 use Chgk\ChgkDb\Parser\Iterator\TextLineIterator;
@@ -59,12 +60,13 @@ class QuestionsVerifySubscriber implements EventSubscriberInterface
         $iterator = new TextLineIterator($verifyRequest->text);
         try {
             $package = $parser->parse($iterator);
-            $formatter = HtmlFormatter::create();
+            $formatterFactory = new FormatterFactory();
+            $formatter = $formatterFactory->getParser($verifyRequest->outputFormat);
 
-            $html = $formatter->format($package);
+            $result = $formatter->format($package, $verifyRequest->textId);
 
 
-            $event->setResponse(new JsonResponse(['html' => $html], 200));
+            $event->setResponse(new JsonResponse(['result' => $result], 200));
         } catch (ParseException $e) {
             $event->setResponse(new JsonResponse(['error' => $e->getMessage(), 'line' => $e->getLineNumber()], 400));
         }

@@ -12,6 +12,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * Group
  *
  * @ORM\Entity
+ * @ApiResource(
+ *     attributes={ "normalization_context"= {"groups"={"group"} }}
+ * )
  * )
  */
 class Group extends TournamentNode
@@ -65,6 +68,7 @@ class Group extends TournamentNode
 
     /**
      * @return Group[]|iterable
+     * @Groups({"group"})
      */
     public function getSubgroups(): iterable
     {
