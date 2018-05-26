@@ -96,5 +96,8 @@ class VerifyQuestionsRequest
      */
     public $outputFormat;
 
+    /**
+     * @var string
+     */
     public $textId;
 }

@@ -63,7 +63,7 @@ class QuestionsVerifySubscriber implements EventSubscriberInterface
             $formatterFactory = new FormatterFactory();
             $formatter = $formatterFactory->getParser($verifyRequest->outputFormat);
 
-            $result = $formatter->format($package, $verifyRequest->textId);
+            $result = $formatter->format($package, $verifyRequest->textId?:'');
 
 
             $event->setResponse(new JsonResponse(['result' => $result], 200));
