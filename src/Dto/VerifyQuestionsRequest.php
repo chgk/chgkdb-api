@@ -90,4 +90,14 @@ class VerifyQuestionsRequest
      * )
      */
     public $text;
+
+    /**
+     * @var string
+     */
+    public $outputFormat;
+
+    /**
+     * @var string
+     */
+    public $textId;
 }

@@ -1,0 +1,5 @@
+api_platform:
+  http_cache:
+    etag: true
+    max_age: 0
+    shared_max_age: 0

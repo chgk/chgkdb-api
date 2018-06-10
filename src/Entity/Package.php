@@ -36,6 +36,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "method"="PUT",
  *              "normalization_context"={"groups"={"package_input"}}
  *          },
+ *          "delete" = {"method"="DELETE"}
  *     },
  *     attributes={
  *      "denormalization_context"={"groups"={"package_input"}}
