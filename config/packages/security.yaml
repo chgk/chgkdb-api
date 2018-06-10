@@ -12,7 +12,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         unsecured:
-            pattern: ^/questions/validate
+            pattern: ^/(questions/validate|validator)
             anonymous: true
         secured:
             pattern: ^/
