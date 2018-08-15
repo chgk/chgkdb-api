@@ -26,6 +26,11 @@ class QuestionTypeType extends Type
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
+        $value = str_replace('Д', '', $value);
+        if ($value == '') {
+            $value = 'Ч';
+        }
+
         if (!in_array(
             $value,
             array(
@@ -37,7 +42,7 @@ class QuestionTypeType extends Type
                 self::TYPE_ERUDIT,
             )
         )) {
-            throw new \InvalidArgumentException("Invalid status");
+            throw new \InvalidArgumentException("Invalid status: ".$value);
         }
 
         return $value;

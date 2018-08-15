@@ -159,6 +159,13 @@ class Package extends TournamentNode
     private $tours;
 
     /**
+     * @var int|null
+     * @ORM\Column(name="PublishedBy", type="integer", nullable=true)
+     * @Groups({"package_input", "package_output", "packages_output"})
+     */
+    private $publishedBy;
+
+    /**
      * @return null|string
      */
     public function getCopyright(): ?string
@@ -372,5 +379,21 @@ class Package extends TournamentNode
         foreach ($this->tours as $tour) {
             $tour->setParentLegacyId($legacyId);
         }
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPublishedBy(): ?int
+    {
+        return $this->publishedBy;
+    }
+
+    /**
+     * @param int|null $publishedBy
+     */
+    public function setPublishedBy(?int $publishedBy): void
+    {
+        $this->publishedBy = $publishedBy;
     }
 }
