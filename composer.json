@@ -27,6 +27,7 @@
         "symfony/framework-bundle": "^4.0",
         "symfony/lts": "^4@dev",
         "symfony/monolog-bundle": "^3.0@dev",
+        "symfony/security-bundle": "^4.0",
         "symfony/web-server-bundle": "^4.0",
         "symfony/yaml": "^4.0"
     },

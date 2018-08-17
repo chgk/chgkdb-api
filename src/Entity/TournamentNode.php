@@ -37,7 +37,7 @@ abstract class TournamentNode
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="CreatedAt", type="date", nullable=false)
+     * @ORM\Column(name="CreatedAt", type="datetime", nullable=false)
      * @Groups({"tour_output", "tour_input", "tours_output", "group", "groups"})
      */
     private $createdAt;
