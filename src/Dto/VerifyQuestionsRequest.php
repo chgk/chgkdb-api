@@ -83,7 +83,7 @@ class VerifyQuestionsRequest
 А не 5.
 
 Автор:
-Василий Пукин"
+Василий Пупкин"
      *
      *           }
      *     }
@@ -100,4 +100,9 @@ class VerifyQuestionsRequest
      * @var string
      */
     public $textId;
+
+    /**
+     * @var int
+     */
+    public $processedBy;
 }

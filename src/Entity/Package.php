@@ -159,6 +159,13 @@ class Package extends TournamentNode
     private $tours;
 
     /**
+     * @var int|null
+     * @ORM\Column(name="ProcessedBy", type="integer", nullable=true)
+     * @Groups({"package_input", "package_output", "packages_output"})
+     */
+    private $processedBy;
+
+    /**
      * @return null|string
      */
     public function getCopyright(): ?string
@@ -372,5 +379,21 @@ class Package extends TournamentNode
         foreach ($this->tours as $tour) {
             $tour->setParentLegacyId($legacyId);
         }
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getProcessedBy(): ?int
+    {
+        return $this->processedBy;
+    }
+
+    /**
+     * @param int|null $processedBy
+     */
+    public function setProcessedBy(?int $processedBy): void
+    {
+        $this->processedBy = $processedBy;
     }
 }
