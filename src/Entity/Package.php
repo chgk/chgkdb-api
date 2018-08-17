@@ -160,10 +160,10 @@ class Package extends TournamentNode
 
     /**
      * @var int|null
-     * @ORM\Column(name="PublishedBy", type="integer", nullable=true)
+     * @ORM\Column(name="ProcessedBy", type="integer", nullable=true)
      * @Groups({"package_input", "package_output", "packages_output"})
      */
-    private $publishedBy;
+    private $processedBy;
 
     /**
      * @return null|string
@@ -384,16 +384,16 @@ class Package extends TournamentNode
     /**
      * @return int|null
      */
-    public function getPublishedBy(): ?int
+    public function getProcessedBy(): ?int
     {
-        return $this->publishedBy;
+        return $this->processedBy;
     }
 
     /**
-     * @param int|null $publishedBy
+     * @param int|null $processedBy
      */
-    public function setPublishedBy(?int $publishedBy): void
+    public function setProcessedBy(?int $processedBy): void
     {
-        $this->publishedBy = $publishedBy;
+        $this->processedBy = $processedBy;
     }
 }
