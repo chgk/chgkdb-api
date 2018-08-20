@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -12,76 +13,41 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ORM\Entity
  * @ApiResource(
- *     collectionOperations={"get"={"method"="GET"}},
- *     itemOperations={"get"={"method"="GET"}}
+ *     attributes={ "normalization_context"= {"groups"={"group"} }}
+ * )
  * )
  */
 class Group extends TournamentNode
 {
-    /**
-     * @ORM\Column(name="ParentId",type="integer", options={"default":"0"})
-     */
-    public $parentId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="Id", type="integer", nullable=false, options={"unsigned"=true})
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups({"group"})
-     */
-    public $id;
-
    /**
     * @var Package[]
     * @ORM\OneToMany(targetEntity="Package", mappedBy="group")
-    * @ORM\JoinColumn(referencedColumnName="ParentId")
-    * @ApiSubresource(maxDepth=1)
-    * @Groups({"group"})
+    * @ORM\JoinColumn(referencedColumnName="ParentTextId")
+    * @ApiSubresource(maxDepth=0)
     */
+    private $packages;
 
-    public $packages;
-
-    /**
-     * @var Group
-     * @ORM\ManyToOne(targetEntity="Group", inversedBy="subgroups")
-     * @ORM\JoinColumn(name="ParentId", referencedColumnName="Id", unique=true)
-     * @ApiSubresource(maxDepth=1)
-     */
-    public $parentGroup;
 
     /**
      * @var Group[]
      * @ORM\OneToMany(targetEntity="Group", mappedBy="parentGroup")
-     * @ORM\JoinColumn(referencedColumnName="ParentId")
-     * @ApiSubresource(maxDepth=1)
-     * @Groups({"group"})
+     * @ORM\JoinColumn(referencedColumnName="ParentTextId")
      */
-    public $subgroups;
+    private $subgroups;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="Title", type="text", length=255, nullable=false)
-     * @Groups({"group"})
+     * @var Group
+     * @ORM\ManyToOne(targetEntity="Group", inversedBy="subgroups")
+     * @ORM\JoinColumn(name="ParentTextId", referencedColumnName="TextId")
      */
-    public $title;
+    public $parentGroup;
 
-    /**
-     * @return mixed
-     */
-    public function getParentId()
+
+    public function __construct()
     {
-        return $this->parentId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
+        parent::__construct();
+        $this->packages = new ArrayCollection();
+        $this->subgroups = new ArrayCollection();
     }
 
     /**
@@ -95,24 +61,28 @@ class Group extends TournamentNode
     /**
      * @return Group
      */
-    public function getParentGroup(): Group
+    public function getParentGroup(): ?Group
     {
         return $this->parentGroup;
     }
 
     /**
-     * @return Group[]
+     * @return Group[]|iterable
+     * @Groups({"group"})
      */
     public function getSubgroups(): iterable
     {
         return $this->subgroups;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle(): string
+
+    public function addPackage(Package $package)
     {
-        return $this->title;
+        $this->packages->add($package);
+    }
+
+    public function removePackage(Package $package)
+    {
+        $this->packages->removeElement($package);
     }
 }

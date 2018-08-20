@@ -16,6 +16,12 @@ doctrine:
             collate: utf8mb4_unicode_ci
 
         url: '%env(resolve:DATABASE_URL)%'
+        types:
+          chgkdb_question_type:
+            class: 'App\Entity\QuestionTypeType'
+          chgkdb_text_id:
+            class: 'App\Entity\TextIdType'
+
         mapping_types:
             enum: string
     orm:

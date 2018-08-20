@@ -83,11 +83,26 @@ class VerifyQuestionsRequest
 А не 5.
 
 Автор:
-Василий Пукин"
+Василий Пупкин"
      *
      *           }
      *     }
      * )
      */
     public $text;
+
+    /**
+     * @var string
+     */
+    public $outputFormat;
+
+    /**
+     * @var string
+     */
+    public $textId;
+
+    /**
+     * @var int
+     */
+    public $processedBy;
 }

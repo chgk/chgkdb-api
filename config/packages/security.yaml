@@ -1,17 +1,26 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        in_memory:
+            memory:
+              users:
+                  db.chgk.info:
+                      password: "%env(resolve:ACCESS_PASSWORD)%"
+                      roles: "ROLE_EDITOR"
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        unsecured:
+            pattern: ^/(questions/validate|validator)
+            anonymous: true
+        secured:
+            pattern: ^/
+            methods: [POST, PUT, PATCH]
+            http_basic: true
         main:
             anonymous: true
 
-            # activate different ways to authenticate
-
-            # http_basic: true
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
             # form_login: true
@@ -22,3 +31,5 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
