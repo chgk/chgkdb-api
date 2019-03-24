@@ -38,9 +38,9 @@ final class CustomItemNormalizer  implements NormalizerInterface, DenormalizerIn
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data['id']) && !isset($context[AbstractNormalizer::OBJECT_TO_POPULATE])) {
-            if (isset($context['api_allow_update']) && true !== $context['api_allow_update']) {
-                throw new NotNormalizableValueException('Update is not allowed for this operation.');
-            }
+#            if (isset($context['api_allow_update']) && true !== $context['api_allow_update']) {
+#                throw new NotNormalizableValueException('Update is not allowed for this operation.');
+#            }
 
             if (isset($context['resource_class'])) {
                 try {
