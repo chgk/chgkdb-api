@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c91078027ff291d6abd00c0589e599e6",
+    "content-hash": "1544726d9778d0fc7aefdef34951703e",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -186,11 +186,11 @@
         },
         {
             "name": "chgk/chgkdb-parser",
-            "version": "v1.0.8",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chgk/chgkdb-parser",
-                "reference": "21bddff35b2196895a860d58b404e05cd83d43f6"
+                "reference": "2f5b14e44698391a512eab56ed8ce2551985b496"
             },
             "require": {
                 "ext-json": "*",
@@ -213,7 +213,7 @@
                 }
             ],
             "description": "Parsing and validation for import in db.chgk.info",
-            "time": "2018-08-18T19:40:38+00:00"
+            "time": "2019-03-24T12:56:09+00:00"
         },
         {
             "name": "doctrine/annotations",
