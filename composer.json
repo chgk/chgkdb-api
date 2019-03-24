@@ -21,7 +21,7 @@
         "php": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.2",
-        "chgk/chgkdb-parser": "v1.0.8",
+        "chgk/chgkdb-parser": "v1.0.9",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.0",
