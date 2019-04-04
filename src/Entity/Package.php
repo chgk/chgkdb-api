@@ -8,7 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
 /**
  * Tournaments
  *
@@ -42,6 +43,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "denormalization_context"={"groups"={"package_input"}}
  *     }
  * )
+ * @ApiFilter(OrderFilter::class, properties={"updatedAt", "createdAt"}, arguments={"orderParameterName"="order"})
  */
 class Package extends TournamentNode
 {
@@ -165,6 +167,7 @@ class Package extends TournamentNode
      */
     private $processedBy;
 
+     
     /**
      * @return null|string
      */
