@@ -16,7 +16,7 @@ security:
             anonymous: true
         secured:
             pattern: ^/
-            methods: [POST, PUT, PATCH]
+            methods: [POST, PUT, PATCH, DELETE]
             http_basic: true
         main:
             anonymous: true
