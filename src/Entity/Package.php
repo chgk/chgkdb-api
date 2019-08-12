@@ -58,7 +58,7 @@ class Package extends TournamentNode
      *
      * @ORM\ManyToOne(targetEntity="Group", inversedBy="packages")
      * @ORM\JoinColumn(name="ParentTextId", referencedColumnName="TextId")
-     * @Groups({"package_input", "package_output"})
+     * @Groups({"package_input", "package_output", "packages_output"})
      */
     public $group;
 

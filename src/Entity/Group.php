@@ -23,7 +23,8 @@ class Group extends TournamentNode
     * @var Package[]
     * @ORM\OneToMany(targetEntity="Package", mappedBy="group")
     * @ORM\JoinColumn(referencedColumnName="ParentTextId")
-    * @ApiSubresource(maxDepth=0)
+    * ApiSubresource(maxDepth=1)
+    * @Groups({"group", "groups"})
     */
     private $packages;
 
