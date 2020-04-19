@@ -6,16 +6,13 @@ namespace App\EventSubscriber;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Dto\VerifyQuestionsRequest;
 use Chgk\ChgkDb\Parser\Formatter\FormatterFactory;
-use Chgk\ChgkDb\Parser\Formatter\HtmlFormatter;
-use Chgk\ChgkDb\Parser\Iterator\FileLineIterator;
 use Chgk\ChgkDb\Parser\Iterator\TextLineIterator;
 use Chgk\ChgkDb\Parser\ParserFactory\ParserFactory;
+use Chgk\ChgkDb\Parser\ParserFactory\UnregisteredParserException;
 use Chgk\ChgkDb\Parser\TextParser\Exception\ParseException;
-use Chgk\ChgkDb\Parser\TextParser\TextParser;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class QuestionsVerifySubscriber implements EventSubscriberInterface
@@ -42,10 +39,10 @@ class QuestionsVerifySubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param GetResponseForControllerResultEvent $event
-     * @throws \Chgk\ChgkDb\Parser\ParserFactory\UnregisteredParserException
+     * @param ViewEvent $event
+     * @throws UnregisteredParserException
      */
-    public function validateQuestions(GetResponseForControllerResultEvent $event)
+    public function validateQuestions(ViewEvent $event)
     {
         $request = $event->getRequest();
         if ($request->attributes->get('_route') !== 'api_verify_questions_requests_post_collection')

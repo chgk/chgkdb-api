@@ -6,16 +6,17 @@ use Chgk\ChgkDb\Parser\Formatter\HtmlFormatter;
 use Chgk\ChgkDb\Parser\Iterator\TextLineIterator;
 use Chgk\ChgkDb\Parser\ParserFactory\ParserFactory;
 use Chgk\ChgkDb\Parser\TextParser\Exception\ParseException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ValidatorFormController extends Controller
+class ValidatorFormController extends AbstractController
 {
     /**
      * @var ParserFactory
      */
-    private $parserFactory;
+    private ParserFactory $parserFactory;
 
     /**
      * ValidatorFormController constructor.
