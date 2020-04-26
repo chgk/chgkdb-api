@@ -1,6 +1,9 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
+        options:
+            !php/const:PDO::MYSQL_ATTR_SSL_CA: '%env(resolve:MYSQL_CA_CERT)%'
+            !php/const:PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT: '%env(resolve:MYSQL_USE_SSL)%'
         types:
           chgkdb_question_type:
             class: 'App\Entity\QuestionTypeType'
