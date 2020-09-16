@@ -8,4 +8,6 @@ return [
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
+    Aws\Symfony\AwsBundle::class => ['all' => true],
+    Pluk77\SymfonySphinxBundle\SymfonySphinxBundle::class => ['all' => true],
 ];
