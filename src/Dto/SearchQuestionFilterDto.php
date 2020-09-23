@@ -41,7 +41,7 @@ class SearchQuestionFilterDto
     /**
      * @var string|null
      */
-    private ?string $orderBy;
+    private ?string $orderBy = null;
 
     /**
      * @var bool
