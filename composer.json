@@ -29,12 +29,12 @@
         "beberlei/doctrineextensions": "^1.2",
         "chgk/chgkdb-parser": "v1.*",
         "chgk/sphinx-bundle": "dev-master",
-        "symfony/console": "5.0.*",
-        "symfony/dotenv": "5.0.*",
+        "symfony/console": "5.1.*",
+        "symfony/dotenv": "5.1.*",
         "symfony/flex": "^1.3.1",
-        "symfony/framework-bundle": "5.0.*",
+        "symfony/framework-bundle": "5.1.*",
         "symfony/monolog-bundle": "^3.5",
-        "symfony/yaml": "5.0.*"
+        "symfony/yaml": "5.1.*"
     },
     "require-dev": {
     },
@@ -81,7 +81,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.0.*"
+            "require": "5.1.*"
         }
     }
 }
