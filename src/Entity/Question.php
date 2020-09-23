@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use App\Filter\ChgkDbSearchFilter;
 
 /**
  * Questions
@@ -26,6 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "order"={"number": "ASC"}
  *     }
  * )
+ * @ApiFilter(ChgkDbSearchFilter::class)
  */
 
 class Question
@@ -35,7 +39,7 @@ class Question
      *
      * @ORM\Column(name="TextId", type="chgkdb_text_id", length=32, nullable=false, options={"fixed"=true})
      * @ORM\Id
-     * @Groups({"tour_output", "tour_input", "package_output", "package_input"})
+     * @Groups({"tour_output", "tour_input", "package_output", "package_input", "question"})
      */
     private $id;
 
