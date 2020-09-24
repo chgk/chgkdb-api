@@ -3,6 +3,7 @@
 namespace App\Search;
 
 use App\Dto\SearchQuestionFilterDto;
+use App\Dto\SearchPackageFilterDto;
 
 interface ChgkDbSearchInterface {
     const FIELD_QUESTION = 'question';
@@ -67,8 +68,14 @@ interface ChgkDbSearchInterface {
     ];
 
     /**
-     * @param SearchQuestionFilterDto $searchFilterDto
+     * @param SearchQuestionFilterDto $searchQuestionFilterDto
      * @return array
      */
-    public function searchQuestions(SearchQuestionFilterDto $searchFilterDto);
+    public function searchQuestions(SearchQuestionFilterDto $searchQuestionFilterDto);
+
+    /**
+     * @param SearchPackageFilterDto $searchPackageFilterDto
+     * @return string[]
+     */
+    public function searchPackages(SearchPackageFilterDto $searchPackageFilterDto);
 }

@@ -1,21 +1,26 @@
 <?php
 
-
 namespace App\Filter;
 
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\FilterInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use App\Search\ChgkDbSearchInterface;
-use App\Search\SearchFilterFactory;
+use App\Search\SearchDateFilterSetter;
+use App\Search\SearchOrderFilterSetter;
+use App\Search\SearchQueryFilterSetter;
+use App\Search\SearchQuestionsFilterFactory;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class ChgkDbSearchFilter implements FilterInterface
+/**
+ * Class ChgkDbSearchQuestionsFilter
+ */
+class ChgkDbSearchQuestionsFilter implements FilterInterface
 {
     /**
-     * @var SearchFilterFactory
+     * @var SearchQuestionsFilterFactory
      */
-    private SearchFilterFactory $searchFilterFactory;
+    private SearchQuestionsFilterFactory $searchQuestionsFilterFactory;
     /**
      * @var RequestStack
      */
@@ -26,23 +31,23 @@ class ChgkDbSearchFilter implements FilterInterface
     private ChgkDbSearchInterface $chgkDbSearch;
 
     /**
-     * @param SearchFilterFactory $searchFilterFactory
+     * @param SearchQuestionsFilterFactory $searchFilterFactory
      * @param RequestStack $requestStack
      * @param ChgkDbSearchInterface $chgkDbSearch
      */
     public function __construct(
-        SearchFilterFactory $searchFilterFactory,
+        SearchQuestionsFilterFactory $searchFilterFactory,
         RequestStack $requestStack,
         ChgkDbSearchInterface $chgkDbSearch
     ) {
-        $this->searchFilterFactory = $searchFilterFactory;
+        $this->searchQuestionsFilterFactory = $searchFilterFactory;
         $this->requestStack = $requestStack;
         $this->chgkDbSearch = $chgkDbSearch;
     }
     public function getDescription(string $resourceClass): array
     {
         return [
-            SearchFilterFactory::PARAM_QUERY => [
+            SearchQueryFilterSetter::PARAM_QUERY => [
                  'property' => null,
                  'name' => 'query',
                  'type' => 'string',
@@ -51,15 +56,15 @@ class ChgkDbSearchFilter implements FilterInterface
                      'description' => 'Search query',
                  ],
              ],
-            SearchFilterFactory::PARAM_FIELDS.'[]' => [
+            SearchQuestionsFilterFactory::PARAM_FIELDS.'[]' => [
                 'property' => null,
-                'name' => SearchFilterFactory::PARAM_FIELDS.'[]',
+                'name' => SearchQuestionsFilterFactory::PARAM_FIELDS.'[]',
                 'type' => 'string',
                 'is_collection' => true,
                 'required' => false,
                 'openapi' => [
                     'description' => 'Allows you to reduce search fields',
-                    'name' => SearchFilterFactory::PARAM_FIELDS.'[]',
+                    'name' => SearchQuestionsFilterFactory::PARAM_FIELDS.'[]',
                     'schema' => [
                         'type' => 'array',
                         'items' => [
@@ -69,15 +74,15 @@ class ChgkDbSearchFilter implements FilterInterface
                     ],
                 ],
             ],
-            SearchFilterFactory::PARAM_QUESTION_TYPES.'[]' => [
+            SearchQuestionsFilterFactory::PARAM_QUESTION_TYPES.'[]' => [
                 'property' => null,
-                'name' => SearchFilterFactory::PARAM_QUESTION_TYPES.'[]',
+                'name' => SearchQuestionsFilterFactory::PARAM_QUESTION_TYPES.'[]',
                 'type' => 'string',
                 'is_collection' => true,
                 'required' => false,
                 'openapi' => [
                     'description' => 'Allows you to specify question types',
-                    'name' => SearchFilterFactory::PARAM_QUESTION_TYPES.'[]',
+                    'name' => SearchQuestionsFilterFactory::PARAM_QUESTION_TYPES.'[]',
                     'schema' => [
                         'type' => 'array',
                         'items' => [
@@ -87,22 +92,22 @@ class ChgkDbSearchFilter implements FilterInterface
                     ],
                 ],
             ],
-            SearchFilterFactory::PARAM_ANY_WORD => [
+            SearchQuestionsFilterFactory::PARAM_ANY_WORD => [
                 'property' => null,
-                'name' => SearchFilterFactory::PARAM_ANY_WORD,
+                'name' => SearchQuestionsFilterFactory::PARAM_ANY_WORD,
                 'type' => 'boolean',
                 'required' => false,
                 'openapi' => [
                     'schema' => [
                         'type' => 'boolean',
                     ],
-                    'description' => 'Search any word of the query. For backward compability -- use "word1 | word2 | word3"',
+                    'description' => 'Search any word of the query. For backward compatibility -- use "word1 | word2 | word3"',
                     'deprecated' => true,
                 ]
             ],
-            SearchFilterFactory::PARAM_DATE_FROM => [
+            SearchDateFilterSetter::PARAM_DATE_FROM => [
                 'property' => null,
-                'name' => SearchFilterFactory::PARAM_DATE_FROM,
+                'name' => SearchDateFilterSetter::PARAM_DATE_FROM,
                 'type' => 'date',
                 'required' => false,
                 'openapi' => [
@@ -112,9 +117,9 @@ class ChgkDbSearchFilter implements FilterInterface
                     'description' => 'Start date'
                 ]
             ],
-            SearchFilterFactory::PARAM_DATE_TO => [
+            SearchDateFilterSetter::PARAM_DATE_TO => [
                 'property' => null,
-                'name' => SearchFilterFactory::PARAM_DATE_TO,
+                'name' => SearchDateFilterSetter::PARAM_DATE_TO,
                 'type' => 'date',
                 'required' => false,
                 'openapi' => [
@@ -124,23 +129,23 @@ class ChgkDbSearchFilter implements FilterInterface
                     'description' => 'Finish date'
                 ]
             ],
-            SearchFilterFactory::PARAM_ORDER_BY => [
+            SearchOrderFilterSetter::PARAM_ORDER_BY => [
                 'property' => null,
-                'name' => SearchFilterFactory::PARAM_ORDER_BY,
+                'name' => SearchOrderFilterSetter::PARAM_ORDER_BY,
                 'type' => 'string',
                 'required' => false,
                 'openapi' => [
                     'description' => 'Order parameter',
-                    'name' => SearchFilterFactory::PARAM_ORDER_BY,
+                    'name' => SearchOrderFilterSetter::PARAM_ORDER_BY,
                     'schema' => [
                         'type' => 'string',
                         'enum' => ChgkDbSearchInterface::ALL_ORDERS,
                     ],
                 ],
             ],
-            SearchFilterFactory::PARAM_DESC => [
+            SearchOrderFilterSetter::PARAM_DESC => [
                 'property' => null,
-                'name' => SearchFilterFactory::PARAM_DESC,
+                'name' => SearchOrderFilterSetter::PARAM_DESC,
                 'type' => 'boolean',
                 'required' => false,
                 'openapi' => [
@@ -159,7 +164,7 @@ class ChgkDbSearchFilter implements FilterInterface
         if (!$request) {
             return;
         }
-        $searchFilter = $this->searchFilterFactory->createFromRequest($request);
+        $searchFilter = $this->searchQuestionsFilterFactory->createFromRequest($request);
         if (!$searchFilter->exists()) {
             return;
         }

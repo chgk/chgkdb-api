@@ -8,7 +8,7 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
-use App\Filter\ChgkDbSearchFilter;
+use App\Filter\ChgkDbSearchQuestionsFilter;
 
 /**
  * Questions
@@ -29,7 +29,7 @@ use App\Filter\ChgkDbSearchFilter;
  *      "order"={"number": "ASC"}
  *     }
  * )
- * @ApiFilter(ChgkDbSearchFilter::class)
+ * @ApiFilter(ChgkDbSearchQuestionsFilter::class)
  */
 
 class Question

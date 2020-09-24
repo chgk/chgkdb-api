@@ -1,34 +1,18 @@
 <?php
 
-
 namespace App\Dto;
 
 use DateTimeInterface;
 
 /**
- * Class SearchQuestionFilterDto
+ * Class SearchPackageFilterDto
  */
-class SearchQuestionFilterDto implements SearchDateFilterDtoInterface, SearchOrderFilterDtoInterface, SearchQueryDtoInterface
+class SearchPackageFilterDto implements SearchDateFilterDtoInterface, SearchOrderFilterDtoInterface, SearchQueryDtoInterface
 {
     /**
      * @var string
      */
     private string $query  = '';
-
-    /**
-     * @var string[]
-     */
-    private array $fields = [];
-
-    /**
-     * @var string[]
-     */
-    private array $questionTypes = [];
-
-    /**
-     * @var bool
-     */
-    private $anyWord = false;
 
     /**
      * @var DateTimeInterface|null
@@ -53,7 +37,7 @@ class SearchQuestionFilterDto implements SearchDateFilterDtoInterface, SearchOrd
     /**
      * @return string
      */
-    public function getQuery() : string
+    public function getQuery(): string
     {
         return $this->query;
     }
@@ -67,67 +51,7 @@ class SearchQuestionFilterDto implements SearchDateFilterDtoInterface, SearchOrd
     }
 
     /**
-     * @return bool
-     */
-    public function exists()
-    {
-        if ($this->query || $this->orderBy) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getFields(): array
-    {
-        return $this->fields;
-    }
-
-    /**
-     * @param array $fields
-     */
-    public function setFields(array $fields): void
-    {
-        $this->fields = $fields;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getQuestionTypes(): array
-    {
-        return $this->questionTypes;
-    }
-
-    /**
-     * @param string[] $questionTypes
-     */
-    public function setQuestionTypes(array $questionTypes): void
-    {
-        $this->questionTypes = $questionTypes;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAnyWord(): bool
-    {
-        return $this->anyWord;
-    }
-
-    /**
-     * @param bool $anyWord
-     */
-    public function setAnyWord(bool $anyWord): void
-    {
-        $this->anyWord = $anyWord;
-    }
-
-    /**
-     * @return DateTimeInterface
+     * @return DateTimeInterface|null
      */
     public function getDateFrom(): ?DateTimeInterface
     {
@@ -135,9 +59,9 @@ class SearchQuestionFilterDto implements SearchDateFilterDtoInterface, SearchOrd
     }
 
     /**
-     * @param DateTimeInterface $dateFrom
+     * @param DateTimeInterface|null $dateFrom
      */
-    public function setDateFrom(DateTimeInterface $dateFrom): void
+    public function setDateFrom(?DateTimeInterface $dateFrom): void
     {
         $this->dateFrom = $dateFrom;
     }
@@ -188,5 +112,10 @@ class SearchQuestionFilterDto implements SearchDateFilterDtoInterface, SearchOrd
     public function setOrderDesc(bool $orderDesc): void
     {
         $this->orderDesc = $orderDesc;
+    }
+
+    public function exists()
+    {
+        return !empty($this->query) || !empty($this->dateFrom) ||!empty($this->dateTo);
     }
 }
